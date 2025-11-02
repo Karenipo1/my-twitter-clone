@@ -1,5 +1,7 @@
 import "./globals.css";
 import SideBar from "./components/Sidebar";
+import RightPanel from "./components/RightPanel";
+import ClientOnly from "./components/ClientOnly";
 
 export const metadata = {
   title: "X Clone App",
@@ -10,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className='bg-black  text-white min-h-screen' 
+        className='min-h-screen transition-colors' data-theme="light" 
       >
         <div className="flex h-screen">
           <aside className="w-fit border-r border-gray-100 p-4">
@@ -19,9 +21,9 @@ export default function RootLayout({ children }) {
           <main className="flex-1 flex  flex-col overflow-y-auto">
             {children}
           </main>
-          <aside className="w-1/4 border-l border-gray-100 p-4">
-            <p>Right Pannel</p>
-          </aside>
+          <ClientOnly>
+            <RightPanel />
+          </ClientOnly>
         </div>
       </body>
     </html>
