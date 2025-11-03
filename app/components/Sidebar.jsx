@@ -3,7 +3,7 @@ import Link from "next/link";
 import ClientOnly from "./ClientOnly";
 import PostModal from "./PostModal";
 
-export default function Sidebar() {
+export default function Sidebar({isMobile=false}) {
     // Menu items for the sidebar
   const menuItems = [
     { name: "Home", icon: <Home size={24} />, path: "/" },
@@ -14,7 +14,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <nav className="flex flex-col justify-between h-full">
+    <nav className={`flex ${isMobile ? "flex-row justify-around w-full" : "flex-col h-full"} items-end`}>
       {/* Logo */}
       <div>
         <h1 className="text-4xl font-bold mb-6 p-2"><Link href="/">X</Link></h1>
