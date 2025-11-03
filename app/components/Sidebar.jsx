@@ -1,6 +1,7 @@
 import { Home, Search, Bell, Mail, User } from "lucide-react";
 import Link from "next/link";
-import PostButton from "./PostButton";
+import ClientOnly from "./ClientOnly";
+import PostModal from "./PostModal";
 
 export default function Sidebar() {
     // Menu items for the sidebar
@@ -35,7 +36,9 @@ export default function Sidebar() {
           </li>
         </ul>
         {/* Post Button */}
-        <PostButton></PostButton>
+        <ClientOnly>
+        <PostModal />
+        </ClientOnly>
       </div>
       
     </nav>

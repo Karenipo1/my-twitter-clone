@@ -2,6 +2,7 @@ import React from 'react';
 import TweetCard from './components/TweetCard';
 import Link from 'next/link';
 import Header from './components/Header';
+import PostComposer from './components/PostComposer';
 
 async function getTweets(){
   const res = await fetch("https://dummyjson.com/posts");
@@ -15,6 +16,7 @@ const tweets = await getTweets();
   return (
     <>
     <Header></Header>
+    <PostComposer />
     <section
       className="
           flex-1
