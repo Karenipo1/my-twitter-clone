@@ -15,14 +15,14 @@ export default function RootLayout({ children }) {
         className='min-h-screen transition-colors' data-theme="light" 
       >
         <div className="flex h-screen">
-          <aside className="hidden md:flex md:w-1/6 lg:w-1/6 w-fit border-gray-100 p-5 justify-end">
+          <aside className="hidden md:flex md:w-1/12 lg:w-1/12 w-fit border-gray-100 p-2 justify-end">
             <SideBar></SideBar>
           </aside>
           <main className="flex-1 flex  flex-col overflow-y-auto">
             {children}
           </main>
           <ClientOnly>
-            <aside className="hidden lg:flex lg:w-1/4 border-gray-100 p-4">
+            <aside className="hidden lg:flex lg:w-1/3 border-gray-100 p-2">
               <RightPanel />
             </aside>
           </ClientOnly>

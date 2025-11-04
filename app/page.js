@@ -33,7 +33,7 @@ const tweets = await getTweets();
           mx-auto
         "
     >
-    <div>  this is the home page
+    <div>  
         {tweets &&
           tweets.posts &&
             tweets.posts.map((tweet)=>(

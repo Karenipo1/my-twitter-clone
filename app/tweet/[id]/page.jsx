@@ -5,7 +5,7 @@ async function getTweet(id){
   const res = await fetch(`https://dummyjson.com/posts/${id}`);
   const data = await res.json();
 
-  await new Promise((resolve)=>setTimeout(resolve, 200));
+  //await new Promise((resolve)=>setTimeout(resolve, 200));
   return data;
 }
 
