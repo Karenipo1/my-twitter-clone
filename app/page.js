@@ -1,22 +1,32 @@
-import React from 'react';
+"use client";
+import React, {useState, useEffect, use} from 'react';
 import TweetCard from './components/TweetCard';
 import Link from 'next/link';
 import Header from './components/Header';
 import PostComposer from './components/PostComposer';
 
-async function getTweets(){
-  const res = await fetch("https://dummyjson.com/posts");
-  return res.json();
-}
+export default function Home() {
+  const [tweets, setTweets] = useState([]);
 
-export default async function Home() {
-
-const tweets = await getTweets();
+  const getTweets = async()=>{
+    try {
+      //const res = await fetch("https://dummyjson.com/posts");
+      const res = await fetch("api/posts");
+      const data = await res.json();
+      setTweets(data||[] );
+    } catch (error) {
+      console.log("Error fetching tweets:", error);
+    }
+  };
+    
+   useEffect(()=>{
+    getTweets();
+   },[]); 
 
   return (
     <>
     <Header></Header>
-    <PostComposer />
+    <PostComposer onPostSuccess={getTweets} />
     <section
       className="
           flex-1
@@ -30,15 +40,13 @@ const tweets = await getTweets();
           lg:max-w-[700px]
           xl:max-w-[750px]
           2xl:max-w-[800px]
-          mx-auto
+          
         "
     >
     <div>  
-        {tweets &&
-          tweets.posts &&
-            tweets.posts.map((tweet)=>(
+        {tweets.map((tweet)=>(
 
-              <Link key={tweet.id} href={`/tweet/${tweet.id}`}
+              <Link key={tweet._id} href={`/tweet/${tweet._id}`}
                 className="block hover:bg-[rgb(var(--color-border))]/10 transition-colors"
               >
                 <TweetCard tweet={tweet}></TweetCard>
