@@ -1,20 +1,43 @@
 'use client';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MessageCircle, Repeat2, Heart, ChartNoAxesColumn, Share } from "lucide-react";
 import ToolTip from "./ToolTip";
 
-export default function TweetCard({tweet}) {
+export default function TweetCard({tweet, onNewReply}) {
     //const [likes, setLikes] = useState(tweet.reactions.likes);
     const [likes, setLikes] = useState(tweet.likes);
     const [liked, setLiked] = useState(false);
 
-    const [comments, setComments] = useState(Math.floor(Math.random() * 15));
-    const [retweets, setRetweets] = useState(Math.floor(Math.random() * 100));
+    const [commentsCount, setCommentsCount] = useState(0);
+
+    //const [comments, setComments] = useState(Math.floor(Math.random() * 15));
+    //const [retweets, setRetweets] = useState(Math.floor(Math.random() * 100));
 
     const toggleLike = () => {
         setLiked(!liked);
         setLikes(liked ? likes - 1 : likes + 1);
     }
+
+    useEffect(() => {
+    async function fetchRepliesCount() {
+        try {
+        const res = await fetch(`/api/posts?parent=${tweet._id}`);
+        const data = await res.json();
+        setCommentsCount(data.length); //cantidad de replies
+        } catch (error) {
+        console.error("Error fetching replies:", error);
+        }
+    }
+      fetchRepliesCount();
+    }, [tweet._id]);
+
+      useEffect(() => {
+        if (onNewReply) {
+        onNewReply.current = () => {
+            setCommentsCount((prev) => prev + 1);
+        };
+        }
+    }, [onNewReply]);
 
     async function handleLike() {
         const action = liked ? "unlike" : "like";
@@ -25,6 +48,8 @@ export default function TweetCard({tweet}) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ action }),
         });
+
+        onNewReply?.();
     }
 
     return(
@@ -59,13 +84,13 @@ export default function TweetCard({tweet}) {
                     <ToolTip text="Replay">
                     <button className=" group flex items-center gap-2 hover:text-sky-500 transition-colors">
                         <MessageCircle size={16} />
-                        <span className="text-xs">{comments}</span>
+                        <span className="text-xs">{commentsCount}</span>
                     </button>
                     </ToolTip>
                     <ToolTip text="Repost">
                     <button className="  group flex items-center gap-2 hover:text-green-500 transition-colors">
                         <Repeat2 size={16} />
-                        <span className="text-xs">{retweets}</span>
+                        <span className="text-xs">0</span>
                     </button>
                     </ToolTip>
                     <ToolTip text="Like">

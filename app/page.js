@@ -10,9 +10,12 @@ export default function Home() {
 
   const getTweets = async()=>{
     try {
+      console.log("📡 Fetching tweets...");
       //const res = await fetch("https://dummyjson.com/posts");
-      const res = await fetch("api/posts");
+      const res = await fetch("/api/posts");
+      console.log("🔢 Response status:", res.status);
       const data = await res.json();
+      console.log("🧾 Data received:", data);
       setTweets(data||[] );
     } catch (error) {
       console.log("Error fetching tweets:", error);

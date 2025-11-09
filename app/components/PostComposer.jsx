@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Image, Smile, Globe } from "lucide-react";
 import ToolTip from "./ToolTip";
 
-export default function PostComposer({ placeholder, onPostSuccess }) {
+export default function PostComposer({ placeholder, onPostSuccess, parentId }) {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -16,11 +16,13 @@ export default function PostComposer({ placeholder, onPostSuccess }) {
 
     // Simula envío de tweet
     const newPost = {
-      id: Date.now(),
+      user_name: "Current User",
+      user: "you",  
       body: content,
-      user: "you",
-      likes: 0,
-      createdAt: new Date().toISOString(),
+      image: "you",
+      emoji: null,
+      parent: parentId || null,
+      
     };
     try{
       const res = await fetch("/api/posts", {
@@ -35,7 +37,9 @@ export default function PostComposer({ placeholder, onPostSuccess }) {
     // Enviar al backend
     
     onPostSuccess?.(savedPost);
+
     setContent("");
+
     } catch (error){
       console.error("Error posting:", error);
     } finally {
