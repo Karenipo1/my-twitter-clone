@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Image, Smile, Globe } from "lucide-react";
 import ToolTip from "./ToolTip";
 
-export default function PostComposer({ placeholder, onPostSuccess, parentId }) {
+export default function PostComposer({ placeholder, onPostSuccess, parentId, onClose }) {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -37,7 +37,7 @@ export default function PostComposer({ placeholder, onPostSuccess, parentId }) {
     // Enviar al backend
     
     onPostSuccess?.(savedPost);
-
+    onClose?.();  
     setContent("");
 
     } catch (error){

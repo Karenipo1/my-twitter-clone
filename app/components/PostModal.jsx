@@ -44,11 +44,14 @@ export default function PostModal() {
             >
               ✕
             </button>
+            
             <PostComposer
               onPost={() => {
                 setOpen(false);
-              }}
+              }} 
+              onClose={ () => setOpen(false)}
             />
+            
           </div>
         </div>
       )}
