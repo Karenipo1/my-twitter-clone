@@ -13,13 +13,9 @@ export default function TweetCard({tweet, onNewReply}) {
     //const [comments, setComments] = useState(Math.floor(Math.random() * 15));
     //const [retweets, setRetweets] = useState(Math.floor(Math.random() * 100));
 
-    const toggleLike = () => {
-        setLiked(!liked);
-        setLikes(liked ? likes - 1 : likes + 1);
-    }
-
     useEffect(() => {
     async function fetchRepliesCount() {
+        if (tweet.parent) return;
         try {
         const res = await fetch(`/api/posts?parent=${tweet._id}`);
         const data = await res.json();
@@ -40,15 +36,21 @@ export default function TweetCard({tweet, onNewReply}) {
     }, [onNewReply]);
 
     async function handleLike() {
-        const action = liked ? "unlike" : "like";
-        setLiked(!liked);
-
-        await fetch(`/api/posts/${tweet._id}`, {
+        try {
+            const action = liked ? "unlike" : "like";
+            const res = await fetch(`/api/posts/${tweet._id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ action }),
-        });
+            });
 
+            const updatedPost = await res.json();
+            setLikes(updatedPost.likes);
+            setLiked(!liked);
+        } catch (error) {
+            console.error("Error updating like:", error);
+            return;
+        }
         onNewReply?.();
     }
 
@@ -81,21 +83,24 @@ export default function TweetCard({tweet, onNewReply}) {
                     </p>
                 </div>
                 <div className="flex flex-row justify-between mt-3 w-full text-gray-500">
+
                     <ToolTip text="Replay">
                     <button className=" group flex items-center gap-2 hover:text-sky-500 transition-colors">
                         <MessageCircle size={16} />
                         <span className="text-xs">{commentsCount}</span>
                     </button>
                     </ToolTip>
+
                     <ToolTip text="Repost">
                     <button className="  group flex items-center gap-2 hover:text-green-500 transition-colors">
                         <Repeat2 size={16} />
                         <span className="text-xs">0</span>
                     </button>
                     </ToolTip>
+
                     <ToolTip text="Like">
                     <button
-                        onClick={toggleLike}
+                        onClick={handleLike}
                         className={` group flex items-center gap-2 transition-colors ${
                             liked ? "text-pink-500" : "hover:text-pink-500"
                         }`}
@@ -104,6 +109,7 @@ export default function TweetCard({tweet, onNewReply}) {
                         <span className="text-xs">{likes}</span>
                     </button>
                     </ToolTip>
+
                     <ToolTip text="Share">
                     <button className="  hover:text-sky-500 transition-colors">
                         <Share size={16} />

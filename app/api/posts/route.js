@@ -7,12 +7,15 @@ export async function GET(request) {
     const url = new URL(request.url);
     const parent = url.searchParams.get("parent");
 
-    const query = parent ? { parent } : {};
+    const filter = parent ? { parent } : {parent: null};
+    const posts = await Post.find(filter).sort({ createdAt: -1 });
 
-    const posts = await Post.find(query).sort({ createdAt: -1 });
     return Response.json(posts);
+
   } catch (error) {
+
     return Response.json({ error: "Error fetching posts" }, { status: 500 });
+
   }
 }
 
@@ -33,29 +36,5 @@ export async function POST(request) {
     
   }catch (error) {
     return Response.json({ error: "Error creating post" }, { status: 500 });
-  }
-}
-
-export async function PATCH(request, { params }) {
-  try {
-    await connectDB();
-    const { action } = await request.json(); // "like" o "unlike"
-
-    const updatedPost =
-      action === "like"
-        ? await Post.findByIdAndUpdate(
-            params.id,
-            { $inc: { likes: 1 } }, // 🔼 suma 1 like
-            { new: true }
-          )
-        : await Post.findByIdAndUpdate(
-            params.id,
-            { $inc: { likes: -1 } }, // 🔽 resta 1 like
-            { new: true }
-          );
-
-    return Response.json(updatedPost);
-  } catch (error) {
-    return Response.json({ error: "Error updating post" }, { status: 500 });
   }
 }

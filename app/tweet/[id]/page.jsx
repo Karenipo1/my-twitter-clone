@@ -22,8 +22,10 @@ async function getReplies(parentId) {
 }
 
 export default async function TweetDetail({params}) {
-    const tweet = await getTweet(params.id);
-    const replies = await getReplies(params.id);
+    const id = params.id;
+    const tweet = await getTweet(id);
+    const replies = await getReplies(id);
+    console.log("tweet principal:", tweet);
   return <TweetThread tweet={tweet} replies={replies} />
 
 }

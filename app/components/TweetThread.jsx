@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import PostComposer from "./PostComposer";
 import TweetCard from "./TweetCard";
@@ -34,11 +35,17 @@ export default function TweetThread({ tweet, replies: initialReplies }) {
       {/* Comments list */}
       <div>
         {replies?.map((reply) => (
+          <Link
+          key={reply._id}
+          href={`/tweet/${reply._id}`}
+          className="block hover:bg-[rgb(var(--color-hover))] transition-colors"
+          >
           <TweetCard 
           key={reply._id} 
           tweet={reply} 
           onNewReply={fetchReplies}
           />
+          </Link>
         ))}
       </div>
     </section>
