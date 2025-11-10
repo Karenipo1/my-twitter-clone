@@ -21,19 +21,19 @@ export default function ThemeSwitcher() {
   };
 
   return (
-    <div className="flex items-center justify-between p-4 border rounded-md border-[rgb(var(--color-border))] bg-[rgb(var(--color-bg))]/80 transition-colors">
-      <span className="font-semibold">Mode</span>
+    <div className="flex items-center justify-between p-3 border rounded-xl border-[rgb(var(--color-border))] bg-[rgb(var(--color-bg))]/80 transition-colors">
+      <span className=" text-xs font-semibold">Mode </span>
       <button
         onClick={toggleTheme}
         className={`
-          relative inline-flex h-6 w-12 items-center rounded-full
+          relative inline-flex h-3.5 w-7 items-center rounded-full
           transition-colors duration-300
-          ${theme === "dark" ? "bg-gray-700" : "bg-yellow-400"}
+          ${theme === "dark" ? "bg-gray-700" : "bg-blue-500"}
         `}
       >
         <span
           className={`
-            inline-block h-5 w-5 transform rounded-full bg-white shadow-md transition-transform duration-300
+            inline-block h-3 w-3 transform rounded-full bg-white shadow transition-transform duration-300
             ${theme === "dark" ? "translate-x-6" : "translate-x-1"}
           `}
         />
