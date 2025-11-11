@@ -7,8 +7,36 @@ export async function GET(request) {
     const url = new URL(request.url);
     const parent = url.searchParams.get("parent");
 
-    const filter = parent ? { parent } : {parent: null};
-    const posts = await Post.find(filter).sort({ createdAt: -1 });
+    // count replies
+     if (parent) {
+      const replies = await Post.find({ parent })
+        .sort({ createdAt: -1 });
+      return Response.json(replies);
+    }
+
+    // fetch main posts with replies count
+    const posts = await Post.aggregate([
+      { $match: { parent: null } },
+      {
+        $lookup: {
+          from: "posts",            
+          localField: "_id",        
+          foreignField: "parent",  
+          as: "replies"             
+        }
+      },
+      {
+        $addFields: {
+          repliesCount: { $size: "$replies" }
+        }
+      },
+      {
+        $project: {
+          replies: 0                // excluded replies array
+        }
+      },
+      { $sort: { createdAt: -1 } }
+    ]);
 
     return Response.json(posts);
 

@@ -8,33 +8,6 @@ export default function TweetCard({tweet, onNewReply}) {
     const [likes, setLikes] = useState(tweet.likes);
     const [liked, setLiked] = useState(false);
 
-    const [commentsCount, setCommentsCount] = useState(0);
-
-    //const [comments, setComments] = useState(Math.floor(Math.random() * 15));
-    //const [retweets, setRetweets] = useState(Math.floor(Math.random() * 100));
-
-    useEffect(() => {
-    async function fetchRepliesCount() {
-        if (tweet.parent) return;
-        try {
-        const res = await fetch(`/api/posts?parent=${tweet._id}`);
-        const data = await res.json();
-        setCommentsCount(data.length); //cantidad de replies
-        } catch (error) {
-        console.error("Error fetching replies:", error);
-        }
-    }
-      fetchRepliesCount();
-    }, [tweet._id]);
-
-      useEffect(() => {
-        if (onNewReply) {
-        onNewReply.current = () => {
-            setCommentsCount((prev) => prev + 1);
-        };
-        }
-    }, [onNewReply]);
-
     async function handleLike() {
         try {
             const action = liked ? "unlike" : "like";
@@ -43,7 +16,7 @@ export default function TweetCard({tweet, onNewReply}) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ action }),
             });
-
+            if (!res.ok) throw new Error("Failed to update like");
             const updatedPost = await res.json();
             setLikes(updatedPost.likes);
             setLiked(!liked);
@@ -87,7 +60,7 @@ export default function TweetCard({tweet, onNewReply}) {
                     <ToolTip text="Replay">
                     <button className=" group flex items-center gap-2 hover:text-sky-500 transition-colors">
                         <MessageCircle size={16} />
-                        <span className="text-xs">{commentsCount}</span>
+                        <span className="text-xs">{tweet.repliesCount || 0}</span>
                     </button>
                     </ToolTip>
 

@@ -1,18 +1,20 @@
 "use client";
-import React, {useState, useEffect, use} from 'react';
+import React, {useState, useEffect} from 'react';
 import TweetCard from './components/TweetCard';
 import Link from 'next/link';
 import Header from './components/Header';
 import PostComposer from './components/PostComposer';
+import { useTweetContext } from './context/TweetContext';
 
 export default function Home() {
   const [tweets, setTweets] = useState([]);
+  const { refreshFlag } = useTweetContext();
 
   const getTweets = async()=>{
     try {
       console.log("📡 Fetching tweets...");
       //const res = await fetch("https://dummyjson.com/posts");
-      const res = await fetch("/api/posts");
+      const res = await fetch("/api/posts", { cache: "no-store" });
       console.log("🔢 Response status:", res.status);
       const data = await res.json();
       console.log("🧾 Data received:", data);
@@ -24,7 +26,8 @@ export default function Home() {
     
    useEffect(()=>{
     getTweets();
-   },[]); 
+   },[refreshFlag]); 
+
 
   return (
     <>

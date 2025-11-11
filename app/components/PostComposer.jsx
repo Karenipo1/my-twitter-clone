@@ -33,8 +33,7 @@ export default function PostComposer({ placeholder, onPostSuccess, parentId, onC
 
     if(!res.ok) throw new Error("Failed to post");
 
-    const savedPost = await res.json();
-    // Enviar al backend
+    const savedPost = await res.json(); //Post saved
     
     onPostSuccess?.(savedPost);
     onClose?.();  

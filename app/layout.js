@@ -2,6 +2,7 @@ import "./globals.css";
 import SideBar from "./components/Sidebar";
 import RightPanel from "./components/RightPanel";
 import ClientOnly from "./components/ClientOnly";
+import { TweetProvider } from "./context/TweetContext";
 
 export const metadata = {
   title: "X Clone App",
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
         className='min-h-screen transition-colors' data-theme="light" 
       >
         <div className="flex h-screen">
+          <TweetProvider>
           <aside className="hidden md:flex md:w-1/12 lg:w-1/12 w-fit border-gray-100 p-2 justify-end">
             <SideBar></SideBar>
           </aside>
@@ -26,6 +28,7 @@ export default function RootLayout({ children }) {
               <RightPanel />
             </aside>
           </ClientOnly>
+          </TweetProvider>
         </div>
       </body>
     </html>

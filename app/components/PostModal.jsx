@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import PostComposer from "./PostComposer";
+import { useTweetContext } from "../context/TweetContext";
 
 export default function PostModal() {
   const [open, setOpen] = useState(false);
+  const {triggerRefresh} = useTweetContext();
+  
 
   return (
     <>
@@ -46,8 +49,9 @@ export default function PostModal() {
             </button>
             
             <PostComposer
-              onPost={() => {
+              onPostSuccess={() => {
                 setOpen(false);
+                triggerRefresh();
               }} 
               onClose={ () => setOpen(false)}
             />

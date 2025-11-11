@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import PostComposer from "./PostComposer";
 import TweetCard from "./TweetCard";
 
-export default function TweetThread({ tweet, replies: initialReplies }) {
+export default function TweetThread({ tweet:initialTweet, replies: initialReplies }) {
+  const [tweet, setTweet] = useState(initialTweet);
   const [replies, setReplies ] = useState(initialReplies || []);
 
   const fetchReplies  = async () => {
@@ -22,6 +23,15 @@ export default function TweetThread({ tweet, replies: initialReplies }) {
     setReplies(initialReplies);
   }, [initialReplies]);
 
+  const handleNewReply = (newReply) => {
+    setReplies((prev) => [newReply, ...prev]); //added to the top
+
+    setTweet((prev) => ({ // update replies count
+      ...prev,
+      repliesCount: (prev.repliesCount || 0) + 1,
+    }));
+  };
+
   return (
     <section className="flex flex-col border-l border-r border-[rgb(var(--color-border))] min-h-screen">
       
@@ -30,7 +40,7 @@ export default function TweetThread({ tweet, replies: initialReplies }) {
       <PostComposer 
       placeholder={"Post your reply"}
       parentId={tweet._id}
-      onPostSuccess={fetchReplies}
+      onPostSuccess={handleNewReply}
       />
       {/* Comments list */}
       <div>
@@ -41,7 +51,6 @@ export default function TweetThread({ tweet, replies: initialReplies }) {
           className="block hover:bg-[rgb(var(--color-hover))] transition-colors"
           >
           <TweetCard 
-          key={reply._id} 
           tweet={reply} 
           onNewReply={fetchReplies}
           />
