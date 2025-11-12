@@ -17,10 +17,10 @@ export default function RootLayout({ children }) {
       >
         <div className="flex h-screen">
           <TweetProvider>
-          <aside className="hidden md:flex md:w-1/12 lg:w-1/12 w-fit border-gray-100 p-2 justify-end">
+          <aside className="md:w-1/12 lg:w-1/12 w-fit border-gray-100 p-2 justify-end">
             <SideBar></SideBar>
           </aside>
-          <main className="flex-1 flex  flex-col overflow-y-auto">
+          <main className="flex-1 flex  flex-col overflow-y-auto sm:pb-0">
             {children}
           </main>
           <ClientOnly>
