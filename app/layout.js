@@ -13,14 +13,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className='min-h-screen transition-colors' data-theme="light" 
+        className='min-h-screen transition-colors overflow-x-hidden' data-theme="light" 
       >
-        <div className="flex h-screen">
+        <div className="flex h-full">
           <TweetProvider>
-          <aside className="md:w-1/12 lg:w-1/12 w-fit border-gray-100 p-2 justify-end">
+          <aside className="md:w-1/12 lg:w-1/12 w-fit border-gray-100 p-2 justify-end sticky top-0 h-screen">
             <SideBar></SideBar>
           </aside>
-          <main className="flex-1 flex  flex-col overflow-y-auto sm:pb-0">
+          <main className="flex-1 flex  flex-col  sm:pb-0 min-w-0">
             {children}
           </main>
           <ClientOnly>

@@ -53,7 +53,7 @@ export default function Sidebar() {
       
     </nav>
 
-    <nav className="sm:hidden fixed bottom-0 left-0 w-full bg-[rgb(var(--color-bg))] border-t border-[rgb(var(--color-border))] flex justify-around items-center py-2 z-40">
+    <nav className="sm:hidden fixed bottom-0 left-0 w-full overflow-x-hidden bg-[rgb(var(--color-bg))] border-t border-[rgb(var(--color-border))] flex justify-around items-center py-2 z-40">
         {menuItems.map((item) => (
           <Link
             key={item.name}

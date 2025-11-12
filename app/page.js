@@ -46,10 +46,9 @@ export default function Home() {
           lg:max-w-[700px]
           xl:max-w-[750px]
           2xl:max-w-[800px]
-          
         "
     >
-    <div>  
+    <div>
         {tweets.map((tweet)=>(
 
               <Link key={tweet._id} href={`/tweet/${tweet._id}`}
