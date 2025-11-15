@@ -1,4 +1,6 @@
 'use client';
+import { AuthProvider } from "../context/AuthContext";
+
 export default function Header() {
     return(
         <div className="sticky top-0 bg-black/80 backdrop-blur-md z-10 border-b border-gray-800">

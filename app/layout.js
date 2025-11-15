@@ -3,6 +3,7 @@ import SideBar from "./components/Sidebar";
 import RightPanel from "./components/RightPanel";
 import ClientOnly from "./components/ClientOnly";
 import { TweetProvider } from "./context/TweetContext";
+import { AuthProvider } from "./context/AuthContext";
 
 export const metadata = {
   title: "X Clone App",
@@ -11,6 +12,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    <AuthProvider>
     <html lang="en">
       <body
         className='min-h-screen transition-colors overflow-x-hidden' data-theme="light" 
@@ -32,5 +34,6 @@ export default function RootLayout({ children }) {
         </div>
       </body>
     </html>
+    </AuthProvider>
   );
 }
