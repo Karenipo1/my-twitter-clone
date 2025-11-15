@@ -1,4 +1,5 @@
-import { createContext, useState, useEffect } from "react"; 
+'use client';
+import { createContext, useContext, useState, useEffect, useCallback } from "react"; 
 
 export const AuthContext = createContext();
 
@@ -8,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch('/api/auth/login');
+                const response = await fetch('/api/auth/me');
                 if (response.ok) {
                     const userData = await response.json();
                     setUser(userData);
