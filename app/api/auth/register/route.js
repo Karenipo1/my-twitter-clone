@@ -3,7 +3,7 @@ import { bcrypt } from "bcryptjs";
 import { setCookie, setCsrfToken } from "@/lib/cookies";
 import { generateToken } from "@/lib/jwt";
 import { generateCsrfToken } from "@/lib/csrf";
-import User from "@/models/user";
+import User from "@/models/User";
 
 export async function POST(request) {
     try {

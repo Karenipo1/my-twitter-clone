@@ -6,8 +6,7 @@ export async function POST(request) {
     try {
         const response = NextResponse.json({ message: "Logged out successfully" });
 
-        deleteCookie(response, COOKIE_NAME.CSRF_COOKIE);
-        deleteCookie(response, COOKIE_NAME.AUTH_COOKIE_NAME);
+        clearAuthCookies(response);
         return response;
     } catch (error) {
         console.error("Error during logout:", error);

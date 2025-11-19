@@ -3,7 +3,7 @@ import { bcrypt } from "bcryptjs";
 import { setCookie, setCsrfToken } from "@/lib/cookies";
 import { generateToken } from "@/lib/jwt";
 import { generateCsrfToken } from "@/lib/csrf";
-import User from "@/models/user";   
+import User from "@/models/User";   
 
 export async function POST(request) {
     try {
@@ -16,7 +16,7 @@ export async function POST(request) {
         // Find user by email
         const user = await User.findOne({ email });
         if (!user) {
-            return NextResponse.json({ error: "Invalid email or password" }, { status: 401 });
+            return NextResponse.json({ error: "User not found" }, { status: 401 });
         }
         // Verify password
         const isPasswordValid = await bcrypt.compare(password, user.passwordHash);

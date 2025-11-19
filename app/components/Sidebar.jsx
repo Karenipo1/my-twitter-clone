@@ -2,6 +2,7 @@ import { Home, Search, Bell, Mail, User } from "lucide-react";
 import Link from "next/link";
 import ClientOnly from "./ClientOnly";
 import PostModal from "./PostModal";
+import LogoutButton from "./LogoutButton";
 
 export default function Sidebar() {
     // Menu items for the sidebar
@@ -42,7 +43,7 @@ export default function Sidebar() {
             </li>
           ))}
           <li>
-            
+            <LogoutButton></LogoutButton>
           </li>
         </ul>
         {/* Post Button */}
