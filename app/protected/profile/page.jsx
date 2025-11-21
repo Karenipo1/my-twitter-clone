@@ -1,5 +1,5 @@
 import React from 'react';
-import useRequireAuth from '../hooks/useRequireAuth';
+import useRequireAuth from '../protected/hooks/useRequireAuth';
 
 export default function ProfilePage(){
     const user = useRequireAuth();

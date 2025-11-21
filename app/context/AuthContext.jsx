@@ -8,21 +8,20 @@ export function useAuth() {
 }
 
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+export const AuthProvider = ({ children, initialUser = null }) => {
+  const [user, setUser] = useState(initialUser);
+  const [loading, setLoading] = useState(!initialUser);
 
   // Load user data on initial mount
   const loadUser = useCallback(async () => {
     try {
       const response = await fetch('/api/auth/me', {
-        method: 'GET',
         credentials: 'include'
       });
 
       if (response.ok) {
-        const userData = await response.json();
-        setUser(userData.user);
+        const data  = await response.json();
+        setUser(data .user);
       } else {
         setUser(null);
       } 
@@ -32,11 +31,15 @@ export const AuthProvider = ({ children }) => {
     }finally {
     setLoading(false);
     }
-  }, []);
+  },  []);
 
-  useEffect(() => {
+useEffect(() => {
+  if (!initialUser) {
     loadUser();
-  }, [loadUser]);
+  } else {
+    setLoading(false);
+  }
+}, [initialUser, loadUser]);
 
   // Login function
   const login = async (email, password) => {
@@ -47,11 +50,11 @@ export const AuthProvider = ({ children }) => {
               headers: {
                   'Content-Type': 'application/json'
               },
-              body: JSON.stringify(email, password)
+              body: JSON.stringify({email, password})
           });
           if (response.ok) {
-              const userData = await response.json();
-              setUser(userData.user);
+              const data = await response.json();
+              setUser(data.user);
               return { success: true };
           }
           const errorData = await response.json();
@@ -71,11 +74,11 @@ export const AuthProvider = ({ children }) => {
               headers: {
                   'Content-Type': 'application/json'
               },  
-              body: JSON.stringify(details)
+              body: JSON.stringify(payload)
           });
           if (response.ok) {
-              const userData = await response.json();
-              setUser(userData.user);
+              const data = await response.json();
+              setUser(data.user);
               return { success: true };
           }
           const errorData = await response.json();

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { verifyToken } from "@/lib/jwt";
 import User from "@/models/User";
 import {COOKIE_NAME} from "@/lib/cookies";
+import { connectDB } from "@/lib/mongodb";
 
 export async function GET(request) {
     try {
@@ -14,7 +15,7 @@ export async function GET(request) {
         if (!payload) {
             return NextResponse.json({ error: "Invalid token" }, { status: 401 });
         }
-
+        await connectDB();
         const user = await User.findById(payload.id).select("-password");
         if (!user) {
             return NextResponse.json({ error: "User not found" }, { status: 404 });

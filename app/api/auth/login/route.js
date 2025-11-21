@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server"; 
-import { bcrypt } from "bcryptjs";
-import { setCookie, setCsrfToken } from "@/lib/cookies";
-import { generateToken } from "@/lib/jwt";
-import { generateCsrfToken } from "@/lib/csrf";
+import  bcrypt  from "bcryptjs";
+import { setCookie} from "@/lib/cookies";
 import User from "@/models/User";   
+import { connectDB } from "@/lib/mongodb";
+import { generateToken } from "@/lib/jwt";
 
 export async function POST(request) {
     try {
@@ -13,28 +13,31 @@ export async function POST(request) {
         if (!email || !password) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
+        await connectDB();
         // Find user by email
         const user = await User.findOne({ email });
         if (!user) {
             return NextResponse.json({ error: "User not found" }, { status: 401 });
         }
         // Verify password
-        const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+        const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
             return NextResponse.json({ error: "Invalid email or password" }, { status: 401 });
         }
-        // Generate tokens
-        const token = generateToken({ id: user.id, username: user.username, email: user.email });
-        const csrfToken = generateCsrfToken();
+         // Create JWT
+        const token = generateToken({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        });
+
         // Prepare response
         const response = NextResponse.json({ 
             message: "Login successful", 
-            user: { id: user.id, username: user.username, email: user.email }, 
-            token 
+            user: { id: user.id, username: user.username, email: user.email }
         });
         // Set cookies
         setCookie(response, token);
-        setCsrfToken(response, csrfToken);
         return response;
     } catch (error) {
         console.error("Error during login:", error);

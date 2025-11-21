@@ -35,8 +35,7 @@ export default function RegisterForm() {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "x-csrf-token": form.csrfToken
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           username: form.username,
@@ -54,7 +53,7 @@ export default function RegisterForm() {
       }
 
       // Redirect to login
-      router.push("/login");
+      router.push("/protected");
     } catch (err) {
       setError("Unexpected Error");
     } finally {
@@ -63,11 +62,13 @@ export default function RegisterForm() {
   };
 
   return (
+    <div className="h-screen overflow-hidden flex flex-col  justify-center bg-white w-full">
+    <div className="flex justify-center bg-white">
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-md bg-white p-6 rounded-md shadow"
+      className="w-fit max-w-md bg-white p-6 rounded-md shadow"
     >
-      <h2 className="text-2xl font-bold mb-4">Crear una cuenta</h2>
+      <h2 className="text-2xl font-bold mb-4">Create your account</h2>
 
       {error && (
         <p className="bg-red-100 text-red-700 p-2 rounded mb-3 text-sm">
@@ -79,8 +80,8 @@ export default function RegisterForm() {
         <input
           name="username"
           type="text"
-          placeholder="Username"
-          className="border p-2 rounded"
+          placeholder="Name"
+          className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           onChange={handleChange}
           value={form.username}
           required
@@ -90,7 +91,7 @@ export default function RegisterForm() {
           name="email"
           type="email"
           placeholder="Email"
-          className="border p-2 rounded"
+          className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           onChange={handleChange}
           value={form.email}
           required
@@ -100,7 +101,7 @@ export default function RegisterForm() {
           name="password"
           type="password"
           placeholder="Password"
-          className="border p-2 rounded"
+          className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           onChange={handleChange}
           value={form.password}
           required
@@ -110,7 +111,7 @@ export default function RegisterForm() {
           name="confirmPassword"
           type="password"
           placeholder="Confirm Password"
-          className="border p-2 rounded"
+          className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           onChange={handleChange}
           value={form.confirmPassword}
           required
@@ -118,11 +119,13 @@ export default function RegisterForm() {
 
         <button
           disabled={loading}
-          className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded mt-4"
+          className="bg-black hover:bg-gray-700 text-white rounded-full py-2 mt-3"
         >
-          {loading ? "Creando cuenta..." : "Registrarse"}
+          {loading ? "Account is creating" : "Register"}
         </button>
       </div>
     </form>
+    </div>
+    </div>
   );
 }
