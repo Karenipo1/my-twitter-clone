@@ -11,14 +11,17 @@ export default function PostModal() {
 
   return (
     <>
-      {/* Botón principal */}
+      {/* main button*/}
       
           <div 
           onClick={() => setOpen(true)}
           className="relative group flex justify-center mt-6">
-            {/* Botón redondo */}
-            <div className="bg-black border border-gray-700 hover:bg-gray-900 transition-all rounded-full w-12 h-12 flex items-center justify-center cursor-pointer">
-                {/* SVG de pluma */}
+            {/* Rounded button*/}
+            <div className="bg-black border border-gray-700
+             hover:bg-gray-900 transition-all rounded-full 
+             w-12 h-12 flex items-center justify-center 
+             cursor-pointer">
+                {/* SVG Pen */}
                 <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -31,8 +34,12 @@ export default function PostModal() {
                 </svg>
             </div>
 
-            {/* Tooltip (texto flotante) */}
-            <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-gray-900 text-white text-sm px-3 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity">
+            {/* Tooltip  */}
+            <span className="absolute left-1/2 top-full -translate-x-1/2
+             bg-gray-900 text-white text-xs 
+             px-1 py-1 rounded-md 
+             opacity-0 group-hover:opacity-100 
+             transition-opacity">
                 Post
             </span>
             </div>

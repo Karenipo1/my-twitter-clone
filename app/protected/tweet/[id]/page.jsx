@@ -1,5 +1,4 @@
-import Link from 'next/link';
-import TweetThread from '@/app/components/TweetThread';
+import TweetThread from '../../../components/TweetThread';
 
 async function getTweet(id){
   //const res = await fetch(`https://dummyjson.com/posts/${id}`);

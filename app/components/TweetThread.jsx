@@ -47,7 +47,7 @@ export default function TweetThread({ tweet:initialTweet, replies: initialReplie
         {replies?.map((reply) => (
           <Link
           key={reply._id}
-          href={`/tweet/${reply._id}`}
+          href={`/protected/tweet/${reply._id}`}
           className="block hover:bg-[rgb(var(--color-hover))] transition-colors"
           >
           <TweetCard 

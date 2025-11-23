@@ -1,5 +1,6 @@
 'use client';
-import { createContext, useContext, useState, useEffect, useCallback, use } from "react"; 
+import { createContext, useContext, useState, useEffect, useCallback } from "react"; 
+import { useRouter } from "next/navigation";
 
 export const AuthContext = createContext();
 
@@ -11,6 +12,7 @@ export function useAuth() {
 export const AuthProvider = ({ children, initialUser = null }) => {
   const [user, setUser] = useState(initialUser);
   const [loading, setLoading] = useState(!initialUser);
+  const router = useRouter();
 
   // Load user data on initial mount
   const loadUser = useCallback(async () => {
@@ -21,17 +23,20 @@ export const AuthProvider = ({ children, initialUser = null }) => {
 
       if (response.ok) {
         const data  = await response.json();
-        setUser(data .user);
+        setUser(data.user);
       } else {
         setUser(null);
+        router.replace("/login");
+
       } 
     } catch (error) {
       console.error("Failed to fetch user:", error);
       setUser(null);
+      router.replace("/login");
     }finally {
     setLoading(false);
     }
-  },  []);
+  },  [router]);
 
 useEffect(() => {
   if (!initialUser) {
@@ -91,21 +96,16 @@ useEffect(() => {
 
   // Logout function
   const logout = async () => {
-      try {
+    console.log("➡️ logout() called from AuthContext");
+      
           const response = await fetch('/api/auth/logout', {
               method: 'POST',
               credentials: 'include'
           });
-          if (response.ok) {
+          console.log("⬅️ Logout response status:", response.status);
+          
               setUser(null);
-              return { success: true };
-          }
-          const errorData = await response.json();
-          return { success: false, error: errorData.error };
-      } catch (error) {
-          console.error("Logout error:", error);
-          return { success: false, error: "Network error" };
-      }
+              return { success: true };     
   };
   
   return (

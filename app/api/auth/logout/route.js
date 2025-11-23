@@ -1,15 +1,15 @@
 import {NextResponse} from "next/server";
-import {deleteCookie} from "@/lib/cookies";
+import {clearAuthCookie} from "@/lib/cookies";
 import {COOKIE_NAME} from "@/lib/cookies";
 
 export async function POST(request) {
-    try {
-        const response = NextResponse.json({ message: "Logged out successfully" });
-
-        clearAuthCookies(response);
+    console.log("➡️ Logout endpoint called");
+    
+        const response = NextResponse.redirect("/login");
+        console.log("🧹 Attempting cookie clear...");
+        clearAuthCookie(response);
+        console.log("✅ Cookie cleared in response:", response.cookies.getAll());
+    
         return response;
-    } catch (error) {
-        console.error("Error during logout:", error);
-        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
-    }   
+    
 }

@@ -14,7 +14,7 @@ export default function PostComposer({ placeholder, onPostSuccess, parentId, onC
 
     setLoading(true);
 
-    // Simula envío de tweet
+    // Simulated tweet
     const newPost = {
       user_name: "Current User",
       user: "you",  

@@ -6,11 +6,13 @@ import { TweetProvider } from "../context/TweetContext";
 import { AuthProvider } from "../context/AuthContext";
 import { verifyToken } from "@/lib/jwt";
 import { COOKIE_NAME } from "@/lib/cookies";
+import { cookies } from "next/headers";
 
 
-export default function ProtectedLayout({ children }) {
+export default async function ProtectedLayout({ children }) {
 
-  const token = cookies().get(COOKIE_NAME.AUTH_COOKIE_NAME)?.value;
+  const cookieStore = await cookies();  
+  const token = cookieStore.get(COOKIE_NAME.AUTH_COOKIE_NAME)?.value;
   const userPayload = token ? verifyToken(token) : null;
   
   return (

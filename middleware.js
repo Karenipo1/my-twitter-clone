@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { COOKIE_NAME } from "@/lib/cookies";
-import { verifyToken } from "@/lib/jwt";
+import { cookies } from "next/headers";
 
 const PUBLIC_PATHS = [
     '/login',
@@ -14,7 +14,8 @@ const PROTECTED_PATH = '/protected';
 export async function middleware(request) {
     const {pathname} = request.nextUrl;
 
-    const token = request.cookies.get(COOKIE_NAME.AUTH_COOKIE_NAME)?.value;
+    const cookieStore = await cookies();
+    const token = cookieStore.get(COOKIE_NAME.AUTH_COOKIE_NAME)?.value;
 
     console.log("---- MIDDLEWARE ----");
     console.log("PATH:", pathname);

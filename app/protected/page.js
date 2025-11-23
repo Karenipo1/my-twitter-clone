@@ -5,12 +5,11 @@ import Link from 'next/link';
 import Header from '../components/Header';
 import PostComposer from '../components/PostComposer';
 import { useTweetContext } from '../context/TweetContext';
-import useRequireAuth from '../hooks/useRequireAuth';
+import { useAuth } from '../context/AuthContext';
+
 
 export default function Home() {
-  
-  const user = useRequireAuth();
-
+  const { user, loading } = useAuth(); 
   const [tweets, setTweets] = useState([]);
   const { refreshFlag } = useTweetContext();
 
@@ -18,7 +17,10 @@ export default function Home() {
     try {
       console.log("📡 Fetching tweets...");
       //const res = await fetch("https://dummyjson.com/posts");
-      const res = await fetch("/api/posts", { cache: "no-store" });
+      const res = await fetch("/api/posts", { 
+        cache: "no-store", 
+        credentials: 'include'
+      });
       console.log("🔢 Response status:", res.status);
       const data = await res.json();
       console.log("🧾 Data received:", data);
@@ -32,11 +34,14 @@ export default function Home() {
     getTweets();
    },[refreshFlag]); 
 
+   if (loading) {
+    return <div className="p-10 text-center">Loading</div>;
+  }
 
   return (
     <>
-    <Header></Header>
-    <PostComposer onPostSuccess={getTweets} />
+    <Header ></Header>
+    <PostComposer user={user} onPostSuccess={getTweets} />
     <section
       className="
           flex-1
@@ -55,10 +60,10 @@ export default function Home() {
     <div>
         {tweets.map((tweet)=>(
 
-              <Link key={tweet._id} href={`/tweet/${tweet._id}`}
+              <Link key={tweet._id} href={`/protected/tweet/${tweet._id}`}
                 className="block hover:bg-[rgb(var(--color-border))]/10 transition-colors"
               >
-                <TweetCard tweet={tweet}></TweetCard>
+                <TweetCard user={user} tweet={tweet}></TweetCard>
               </Link>
               
             ))

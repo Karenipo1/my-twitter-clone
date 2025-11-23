@@ -8,10 +8,10 @@ export default function Sidebar() {
     // Menu items for the sidebar
   const menuItems = [
     { name: "Home", icon: <Home size={24} />, path: "/" },
-    { name: "Search", icon: <Search size={24} />, path: "/explore" },
-    { name: "Notifications", icon: <Bell size={24} />, path: "/notifications" },
-    { name: "Messages", icon: <Mail size={24} />, path: "/messages" },
-    { name: "Profile", icon: <User size={24} />, path: "/profile" },
+    { name: "Search", icon: <Search size={24} />, path: "/protected/explore" },
+    { name: "Notifications", icon: <Bell size={24} />, path: "/protected/notifications" },
+    { name: "Messages", icon: <Mail size={24} />, path: "/protected/messages" },
+    { name: "Profile", icon: <User size={24} />, path: "/protected/profile" },
   ];
 
   return (
@@ -25,24 +25,35 @@ export default function Sidebar() {
     ">
       {/* Logo */}
       <div>
-        <h1 className="text-4xl font-bold mb-6 p-2"><Link href="/">X</Link></h1>
+        <h1 className="text-4xl font-bold mb-6">
+          <Link href="/" className="flex items-center justify-center w-12 h-12">
+          X</Link>
+        </h1>
 
         {/* Menu */}
         <ul className="space-y-2">
           {menuItems.map((item) => (
-            <li key={item.name}>
+            <li key={item.name} className="relative group w-fit">
               <Link
                 href={item.path}
-                className="flex items-center gap-3 p-2 rounded-full hover:bg-gray-800 transition"
+                className="flex items-center justify-center w-12 h-12
+                gap-3
+                 hover:bg-gray-200 rounded-full transition"
               >
                 {item.icon}
               </Link>
-              <span className="hidden md:block absolute left-14 top-1/2 -translate-y-1/2 bg-gray-900 text-white text-sm px-3 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity">
+              <span className="hidden md:block 
+              absolute top-full left-1/2
+              -translate-x-1/2 
+               bg-gray-400 text-white text-xs px-1 py-1 rounded-md 
+               opacity-0 group-hover:opacity-100
+               pointer-events-none
+               transition-opacity">
                 {item.name}
             </span>
             </li>
           ))}
-          <li>
+          <li className="flex items-center justify-center w-12 h-12 gap-3">
             <LogoutButton></LogoutButton>
           </li>
         </ul>
@@ -65,6 +76,9 @@ export default function Sidebar() {
           </Link>
         ))}
     </nav>
+    <div className="sm:hidden fixed bottom-16 right-5 z-50">
+          <LogoutButton></LogoutButton>
+    </div>
 
     <div className="sm:hidden fixed bottom-16 right-5 z-50">
       <ClientOnly>
