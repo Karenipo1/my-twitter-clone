@@ -1,4 +1,4 @@
-import { Home, Search, Bell, Mail, User } from "lucide-react";
+import { Home, Search, Bell, Mail, User, Settings, CircleEllipsis } from "lucide-react";
 import Link from "next/link";
 import ClientOnly from "./ClientOnly";
 import PostModal from "./PostModal";
