@@ -26,7 +26,7 @@ export default function RightPanel() {
   }, []);
 
   return (
-    <aside className="p-4 space-y-6">
+    <aside className="p-0 space-y-6">
       <div className="flex justify-end">
         <ThemeSwitcher className="h-6 w-6"/>
       </div>
@@ -35,7 +35,7 @@ export default function RightPanel() {
         <h3 className="text-xl font-bold px-4 py-3">Today's News</h3>
         <ul className="divide-y divide-gray-200">
           {articles.map((article, index) => (
-            <li key={index} className="border-b pb-2">
+            <li key={index} className="border-b border-[rgb(var(--color-border))] mt-4 pb-2">
               {article.urlToImage && (
                 <img
                   src={article.urlToImage}
@@ -52,7 +52,7 @@ export default function RightPanel() {
           )}
         </ul> 
       </div>
-      <Footer />
+      <Footer/>
     </aside>
   );
 }

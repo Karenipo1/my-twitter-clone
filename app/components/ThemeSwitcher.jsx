@@ -22,7 +22,7 @@ export default function ThemeSwitcher() {
 
   return (
     <div className="flex items-center justify-between p-3 border rounded-xl border-[rgb(var(--color-border))] bg-[rgb(var(--color-bg))]/80 transition-colors">
-      <span className=" text-xs font-semibold">Mode </span>
+      <span className=" text-xs font-semibold -translate-x-1">Mode </span>
       <button
         onClick={toggleTheme}
         className={`

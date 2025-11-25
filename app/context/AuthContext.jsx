@@ -24,6 +24,7 @@ export const AuthProvider = ({ children, initialUser = null }) => {
       if (response.ok) {
         const data  = await response.json();
         setUser(data.user);
+        console.log("AuthContext -> loaded user:", data);
       } else {
         setUser(null);
         router.replace("/login");

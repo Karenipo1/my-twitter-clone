@@ -26,7 +26,7 @@ export default async function ProtectedLayout({ children }) {
             {children}
           </main>
           <ClientOnly>
-            <aside className="hidden lg:flex lg:w-1/3 border-gray-100 p-2">
+            <aside className="hidden lg:flex lg:w-1/3 border-gray-100">
               <RightPanel />
             </aside>
           </ClientOnly>

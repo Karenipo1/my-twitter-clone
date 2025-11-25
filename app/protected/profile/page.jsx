@@ -1,6 +1,6 @@
-"use client"
-import {useState} from 'react';
+"use client";
 import { useAuth } from '@/app/context/AuthContext';
+import { useState, useEffect } from 'react';
 
 export default function ProfilePage(){
     const {user} = useAuth();
@@ -45,51 +45,18 @@ export default function ProfilePage(){
     if (!user) return <div>Loading...</div>;
 
     return (
-            <div className="max-w-md mx-auto p-4">
-                <h1 className="text-xl font-bold px-4 py-3">Profile</h1>
-                <p className="mb-4">Welcome, <strong>{user.name}</strong></p>
-
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                    <label className="block mb-1">Current Password</label>
-                    <input
-                        type="password"
-                        value={currentPassword}
-                        onChange={(e) => setCurrentPassword(e.target.value)}
-                        className="w-full border px-3 py-2 rounded"
-                        required
-                    />
-                    </div>
-                    <div>
-                    <label className="block mb-1">New Password</label>
-                    <input
-                        type="password"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                        className="w-full border px-3 py-2 rounded"
-                        required
-                    />
-                    </div>
-                    <div>
-                    <label className="block mb-1">Confirm New Password</label>
-                    <input
-                        type="password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="w-full border px-3 py-2 rounded"
-                        required
-                    />
-                    </div>
-                    <button
-                    type="submit"
-                    className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600"
-                    >
-                    Save
-                    </button>
-                </form>
-                {message && <p className="mt-4 text-red-500">{message}</p>}
+            <>
+            <div className="flex flex-col align-start w-full">
+                <h1 className="text-2xl font-bold mt-4 px-0 py-3">Profile</h1>
+                <h2>name</h2>
+                <div>
+                    <span>bg profile</span>
+                </div>
+                <span>  name</span>
+                <span>  account</span>
+                <span>  date</span>
             </div>
-
+            </>
     );
 
 }

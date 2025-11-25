@@ -11,19 +11,19 @@ export const suggestedAccounts = [
     id: 1,
     name: "Elon Musk",
     username: "@dan_abramov",
-    avatar: "https://i.pravatar.cc/150?img=32",
+    avatar: "https://i.pravatar.cc/150?img=68",
   },
   {
     id: 2,
     name: "Sebastian Vettel",
     username: "@t3dotgg",
-    avatar: "https://i.pravatar.cc/150?img=44",
+    avatar: "https://i.pravatar.cc/150?img=8",
   },
   {
     id: 3,
     name: "Sandra Bullock",
     username: "@NikkitaFTW",
-    avatar: "https://i.pravatar.cc/150?img=12",
+    avatar: "https://i.pravatar.cc/150?img=27",
   },
 ];
 
