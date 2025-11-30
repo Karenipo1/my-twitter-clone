@@ -1,6 +1,8 @@
 'use client';
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import RoundedButton from "../RoundedButton";
 
 export default function LoginForm(){
     const router = useRouter();
@@ -15,28 +17,20 @@ export default function LoginForm(){
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include", 
-        body: JSON.stringify({ email, password }),
+      const result = await signIn("credentials", {
+        redirect: false,   // No automatic redirect
+        email,
+        password
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.error || "Login failed");
-        setLoading(false);
-        return;
+      if (result?.error) {
+        setError(result.error);
+      } else {
+        router.push("/protected"); // Redirect to protected page on success
       }
-
-      console.log("Login OK, redirigiendo a /protected...");
-      // Termina loading antes de navegar
-      setLoading(false);
-      router.push("/protected");
-
     } catch (err) {
-      setError("Network error");
+      console.error(err);
+      setError("Unexpected error");
     } finally {
       setLoading(false);
     }
@@ -75,21 +69,24 @@ export default function LoginForm(){
                 required
               />
 
-              <button
-                className="bg-black hover:bg-gray-700 text-white rounded-full py-2 mt-3"
+              <RoundedButton
+                type="submit"
+                variant="primary"
               >
                 Login
-              </button>
+              </RoundedButton>
+
               <div className="flex justify-center">
                 <span className="font-bold">OR</span>
               </div>
-              <button
+
+              <RoundedButton
                 type="button"
+                variant="secondary"
                 onClick={() => router.push("/register")}
-                className="border border-gray-400 text-gray-700 font-bold rounded-full py-2 hover:bg-gray-200 transition"
               >
                 Create Account
-              </button>
+              </RoundedButton>
             </div>
         </form>
       </div>

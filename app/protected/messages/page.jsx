@@ -1,4 +1,6 @@
 import React from "react";
+import RoundedButton from "@/app/components/RoundedButton";
+
 export default function MessagesPage() {
   return (
   <div className="font-semibold text-[rgb(var(--color-text))] w-fit">
@@ -7,10 +9,10 @@ export default function MessagesPage() {
   <span className="text-sm text-gray-500">
     Drop a line, share posts and more with private conversations between you and others on X.
   </span>
-  <div className='flex justify-end'>
-  <button className="bg-black hover:bg-gray-700 text-white rounded-full py-2 px-4 mt-3"
-  >
-    Write a messages</button>
+  <div className='flex justify-end mt-4'>
+  <RoundedButton>
+    Write a messages
+  </RoundedButton>
   </div>
   </div>
   );

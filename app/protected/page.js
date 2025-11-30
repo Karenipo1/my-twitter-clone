@@ -5,11 +5,11 @@ import Link from 'next/link';
 import Header from '../components/Header';
 import PostComposer from '../components/PostComposer';
 import { useTweetContext } from '../context/TweetContext';
-import { useAuth } from '../context/AuthContext';
+import { useSession } from 'next-auth/react';
 
 
 export default function Home() {
-  const { user, loading } = useAuth(); 
+  const { data: session, status } = useSession();
   const [tweets, setTweets] = useState([]);
   const { refreshFlag } = useTweetContext();
 
@@ -34,9 +34,16 @@ export default function Home() {
     getTweets();
    },[refreshFlag]); 
 
-   if (loading) {
+  if (status === "loading") {
     return <div className="p-10 text-center">Loading</div>;
   }
+
+  if (!session) {
+    return <div className="p-10 text-center">Please log in to see tweets.</div>;
+  }
+
+  const user = session.user;
+
 
   return (
     <>

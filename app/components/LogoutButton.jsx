@@ -1,28 +1,17 @@
 "use client";
 
-import { useAuth } from "../context/AuthContext";
-import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 import { LogOut } from "lucide-react";
 
 export default function LogoutButton() {
-  const { logout } = useAuth();
-  const router = useRouter();
 
   const handleLogout = async () => {
-    console.log("➡️ handleLogout clicked");
-    const result = await logout();
-    console.log("⬅️ logout() result:", result);
-    
-      console.log("🔁 Redirecting to /login");
-      router.push("/login"); 
+    await signOut({ callbackUrl: "/login" });
   };
 
   return (
     <button
-      onClick={()=>{
-        console.log("Button absolutely clicked!");
-        handleLogout();
-      }}
+      onClick={handleLogout}
       className="relative group z-50 flex items-center justify-center
       px-3 py-3
        hover:bg-gray-200 rounded-full transition

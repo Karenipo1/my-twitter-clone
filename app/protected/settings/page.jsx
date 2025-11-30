@@ -1,10 +1,11 @@
 'use client';
 import React from 'react';
-import { useAuth } from '@/app/context/AuthContext';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
+import { useSession } from "next-auth/react";
+import RoundedButton from '../../components/RoundedButton';
 
 export default function SettingsPage(){
-    const {user} = useAuth();
+    const { data: session, status } = useSession();
     
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
@@ -22,7 +23,6 @@ export default function SettingsPage(){
         try {
                 const res = await fetch("/api/auth/update-password", {
                 method: "POST",
-                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ currentPassword, newPassword }),
                 });
@@ -43,7 +43,11 @@ export default function SettingsPage(){
         }
     };
     
-        if (!user) return <div>Loading...</div>;
+    if (status === "loading") {
+        return <div className="p-10 text-center">Loading</div>;
+    }
+        
+    if (!session) return <div>You must be logged in to access this page.</div>;
     
 
 return (
@@ -83,13 +87,12 @@ return (
                         required
                     />
                     </div>
-                    <div className='flex justify-end'>
-                    <button
+                    <div className='flex justify-end'> 
+                    <RoundedButton
                     type="submit"
-                    className="bg-black hover:bg-gray-700 text-white rounded-full py-2 px-4 mt-3"
-                    >
-                    Save
-                    </button>
+                    variant="primary">
+                        Save
+                    </RoundedButton>
                     </div>
                 </form>
                 {message && <p className="mt-4 text-sky-500">{message}</p>}

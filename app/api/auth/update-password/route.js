@@ -2,21 +2,19 @@ import { NextResponse } from "next/server";
 import User from "@/models/User";
 import { connectDB } from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
-import { COOKIE_NAME } from "@/lib/cookies";
-import { verifyToken } from "@/lib/jwt";
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 export async function POST(request) {
   await connectDB();
   try {
-    const token = request.cookies.get(COOKIE_NAME.AUTH_COOKIE_NAME)?.value;
-    if (!token) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-    const payload = verifyToken(token);
-    if (!payload) return NextResponse.json({ error: "Invalid token" }, { status: 401 });
-
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     const { currentPassword, newPassword } = await request.json();
     // User document mongoose
-    const user = await User.findById(payload.id);
+    const user = await User.findOne({ email: session.user.email });
     if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
     // compare current passw vs saved in DB
     const isMatch = await bcrypt.compare(currentPassword, user.password);

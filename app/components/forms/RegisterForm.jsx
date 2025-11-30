@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import RoundedButton from "../RoundedButton";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -52,8 +54,18 @@ export default function RegisterForm() {
         return;
       }
 
-      // Redirect to login
-      router.push("/protected");
+      // Auto-login after successful registration
+      const signInResult = await signIn("credentials", {
+        redirect: false,
+        email: form.email,
+        password: form.password
+      });
+
+      if (signInResult.error) {
+        setError("Registration successful, but auto-login failed.");
+      } else {
+        router.push("/protected/profile");
+      }
     } catch (err) {
       setError("Unexpected Error");
     } finally {
@@ -116,13 +128,14 @@ export default function RegisterForm() {
           value={form.confirmPassword}
           required
         />
-
-        <button
-          disabled={loading}
-          className="bg-black hover:bg-gray-700 text-white rounded-full py-2 mt-3"
+        <RoundedButton
+        type="submit"
+        disabled={loading}
+        variant="primary"
         >
           {loading ? "Account is creating" : "Register"}
-        </button>
+        </RoundedButton>
+        
       </div>
     </form>
     </div>

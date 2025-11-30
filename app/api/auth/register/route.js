@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import  bcrypt  from "bcryptjs";
-import { setCookie } from "@/lib/cookies";
 import User from "@/models/User";
 import {connectDB} from "@/lib/mongodb"
 
 export async function POST(request) {
+
     try {
         // Parse request body
         const { username, email, password } = await request.json();
@@ -30,14 +30,14 @@ export async function POST(request) {
         });
  
         // Prepare response
-        const response = NextResponse.json({ 
-            message: "User registered successfully", 
-            user: { id: newUser.id, username: newUser.username, email: newUser.email }, 
-            token });
-        // Set cookies
-        setCookie(response, "authenticated");
-    
-        return response;
+        return new Response(JSON.stringify({ 
+            message: true, 
+            user: { id: newUser._id, name: newUser.username,email: newUser.email  } 
+        }), {
+            status: 201,
+            headers: { "Content-Type": "application/json" },
+        });
+        
     } catch (error) {
         console.error("Error during registration:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
