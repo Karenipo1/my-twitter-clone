@@ -14,7 +14,8 @@ export default function LogoutButton() {
       onClick={handleLogout}
       className="relative group z-50 flex items-center justify-center
       px-3 py-3
-       hover:bg-gray-200 rounded-full transition
+       hover:bg-[rgb(var(--color-hover-bg))] 
+       rounded-full transition
        cursor-pointer
        
        "

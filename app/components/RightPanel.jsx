@@ -1,29 +1,20 @@
-"use client";
-import { useEffect, useState } from "react";
 import ThemeSwitcher from "./ThemeSwitcher";
 import Footer from "./Footer";
 
-export default function RightPanel() {
-  const [articles, setArticles] = useState([]);
+export const revalidate = 20; 
 
-  useEffect(() => {
-    async function fetchArticles() {
-      try {
-        const response = await fetch(
-          `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}&pageSize=3`
-        );
-        const data = await response.json();
-        if (data.articles){
-          setArticles(data.articles);
-          console.log("Fetched articles:", data.articles);
-        }
+export default async function RightPanel() {
+
+  const res = await fetch(
+  `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}&pageSize=3`,
+  { next: { revalidate: 20 } }
+  );
+  const data = await res.json();
+
+        console.log("Status fetch:", res.status);
+console.log("Headers fetch:", res.headers);
         
-      } catch (error) {
-        console.error("Error fetching articles:", error);
-      }
-    }
-    fetchArticles();
-  }, []);
+        const articles = data.articles || [];
 
   return (
     <aside className="p-0 space-y-6">
@@ -48,7 +39,7 @@ export default function RightPanel() {
             </li> 
           ))}
           {articles.length === 0 && (
-            <li className="px-4 py-3 text-gray-500">Loading news…</li>
+            <li className="px-4 py-3 text-gray-500">No News available</li>
           )}
         </ul> 
       </div>

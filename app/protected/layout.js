@@ -12,7 +12,7 @@ export default async function ProtectedLayout({ children }) {
     <NextAuthProvider>
       <TweetProvider>
         <div className="flex h-full">
-          <aside className="md:w-1/12 lg:w-1/12 w-fit border-gray-100 p-2 justify-end sticky top-0 h-screen">
+          <aside className="md:w-1/12 lg:w-1/12  border-gray-100 p-2 justify-end sticky top-0 h-screen">
             <SideBar></SideBar>
           </aside>
           <main className="flex-1 flex  flex-col  sm:pb-0 min-w-0">

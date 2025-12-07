@@ -67,10 +67,10 @@ export default function PostComposer({ placeholder, onPostSuccess, parentId, onC
 
         {/* Barra inferior */}
         <div className="flex items-center justify-between pt-2">
-          <div className="flex gap-3 text-[rgb(var(--color-text-secondary))]">
-            <ToolTip text="Media"><Image size={18} className="cursor-pointer text-sky-500" /></ToolTip>     
-            <ToolTip text="Emoji"><Smile size={18} className="cursor-pointer text-sky-500" /></ToolTip>
-            <ToolTip text="Location"><Globe size={18} className="cursor-pointer text-sky-500" /></ToolTip>
+          <div className=" flex gap-3 text-[rgb(var(--color-text-secondary))]">
+            <ToolTip text="Media"><Image size={18} className=" text-sky-500" /></ToolTip>     
+            <ToolTip text="Emoji"><Smile size={18} className=" text-sky-500" /></ToolTip>
+            <ToolTip text="Location"><Globe size={18} className=" text-sky-500" /></ToolTip>
           </div>
 
           <button

@@ -49,6 +49,13 @@ export default function LoginForm(){
           onSubmit={onSubmit}
           className="bg-white w-full max-w-full md:max-w-sm rounded-lg p-8 flex flex-col gap-4"
         >
+          {error && (
+            <div className="text-red-600 bg-red-100 border border-red-300 px-3 py-2 rounded">
+              {error === "NoUser" && "We couldn't find an account with this email"}
+              {error === "WrongPassword" && "the password you entered is incorrect"}
+              {error !== "NoUser" && error !== "WrongPassword" && error}
+            </div>
+          )}
           <h2 className="text-2xl font-bold mb-2">Join Today</h2>
             <div className="w-full flex flex-col gap-4">
               <input

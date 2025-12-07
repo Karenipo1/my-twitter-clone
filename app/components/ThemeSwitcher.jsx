@@ -28,13 +28,13 @@ export default function ThemeSwitcher() {
         className={`
           relative inline-flex h-3.5 w-7 items-center rounded-full
           transition-colors duration-300
-          ${theme === "dark" ? "bg-gray-700" : "bg-blue-500"}
+          ${theme === "dark" ? "bg-gray-700" : "bg-sky-500"}
         `}
       >
         <span
           className={`
             inline-block h-3 w-3 transform rounded-full bg-white shadow transition-transform duration-300
-            ${theme === "dark" ? "translate-x-6" : "translate-x-1"}
+            ${theme === "dark" ? "translate-x-3" : "translate-x-1"}
           `}
         />
       </button>

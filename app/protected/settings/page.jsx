@@ -87,7 +87,7 @@ return (
                         required
                     />
                     </div>
-                    <div className='flex justify-end'> 
+                    <div className='flex justify-end font-bold'> 
                     <RoundedButton
                     type="submit"
                     variant="primary">

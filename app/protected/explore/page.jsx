@@ -12,7 +12,7 @@ export default function ExplorePage() {
   const tabActive = "bg-gray-200/70 dark:bg-gray-700/70 font-bold";
 
   return (
-    <div className="font-semibold text-[rgb(var(--color-text))]">
+    <div className="font-semibold text-[rgb(var(--color-text))] h-screen flex-1">
       <h2 className="text-2xl font-bold mt-4 px-0 py-3">Explore</h2>
       
       {/* trendy */}

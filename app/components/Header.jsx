@@ -1,15 +1,15 @@
 'use client';
+import React from 'react';
+import { useSession } from 'next-auth/react';
 
 export default function Header() {
+    const { data: session, status } = useSession();
+
     return(
-        <div className="sticky top-0 bg-black/80 backdrop-blur-md z-10 border-b border-gray-800">
-            <div className="flex justify-around text-gray-400 font-semibold">
-                <button className="flex-1 py-4 hover:bg-gray-900 hover:text-white text-center transition-colors">
-                For you
-                </button>
-                <button className="flex-1 py-4 hover:bg-gray-900 hover:text-white text-center transition-colors">
-                Following
-                </button>
+        <div className="top-0 bg-[rgb(var(--color-bg-hover))] border-b border-[rgb(var(--color-border))] p-4 space-y-2">
+            <div className="flex flex-wrap justify-start gap-x-2">
+                <h1 className='text-sm font-bold text-sky-500'> Welcome back {session.user.username}!!</h1>
+                <p className='text-sm font-semibold text-gray-700 px-4'>@{session.user.email}</p>
             </div>
         </div>
     );

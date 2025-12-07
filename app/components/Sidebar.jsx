@@ -52,7 +52,8 @@ export default function Sidebar() {
                 href={item.path}
                 className="flex items-center justify-center w-12 h-12
                 gap-3
-                 hover:bg-gray-200 rounded-full transition"
+                hover:bg-[rgb(var(--color-hover-bg))]
+                 rounded-full transition"
               >
                 {item.icon}
               </Link>
@@ -71,7 +72,7 @@ export default function Sidebar() {
             <li className="relative group w-fit" ref={profileRef}>
               <button
                 onClick={() => setOpenProfileMenu((prev) => !prev)}
-                className="flex items-center justify-center w-12 h-12 hover:bg-gray-200 rounded-full transition"
+                className="flex items-center justify-center w-12 h-12 hover:bg-[rgb(var(--color-hover-bg))] rounded-full transition"
               >
               <CircleEllipsis size={24} />
               </button>
@@ -83,10 +84,10 @@ export default function Sidebar() {
 
               {/* SUBMENU */}
               {openProfileMenu && (
-                <div className="absolute top-0 left-20 -translate-x-1/2 -translate-y-1/2 bg-white font-bold shadow-lg rounded-xl p-4 w-35 z-50">
+                <div className="absolute top-0 left-20 -translate-x-1/2 -translate-y-1/2 bg-[rgb(var(--color-bg))] text-[rgb(var(--color-text))]  font-bold shadow-lg rounded-xl p-4 w-35 z-50">
                   <Link
                     href="/protected/profile"
-                    className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100"
+                    className="flex items-center gap-2 p-2 rounded-lg hover:bg-[rgb(var(--min-hover-bg))]"
                     onClick={() => setOpenProfileMenu(false)}
                   >
                     <User size={18} />
@@ -95,7 +96,7 @@ export default function Sidebar() {
 
                   <Link
                     href="/protected/settings"
-                    className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100"
+                    className="flex items-center gap-2 p-2 rounded-lg hover:bg-[rgb(var(--min-hover-bg))]"
                     onClick={() => setOpenProfileMenu(false)}
                   >
                     <Settings size={18} />
@@ -116,29 +117,20 @@ export default function Sidebar() {
       </div> 
     </nav>
 
-    <nav className="sm:hidden fixed bottom-0 left-0 w-full overflow-x-hidden bg-[rgb(var(--color-bg))] border-t border-[rgb(var(--color-border))] flex justify-around items-center py-2 z-40">
+    <nav className="sm:hidden fixed bottom-0 left-0 w-full overflow-x-hidden bg-[rgb(var(--color-bg))] border-t border-[rgb(var(--color-border))] flex justify-around items-center py-2 z-50">
         {menuItems.map((item) => (
           <Link
             key={item.name}
             href={item.path}
-            className="flex flex-col items-center justify-center text-gray-400 hover:text-sky-500 transition"
+            
           >
             {item.icon}
           </Link>
         ))}
-        {/* More Mobile Button */}
-        <button
-          onClick={() => setOpenProfileMenu((p) => !p)}
-          className="flex flex-col items-center justify-center text-gray-400 hover:text-sky-500 transition"
-        >
-          <User size={24} />
-        </button>
+       <LogoutButton></LogoutButton>
     </nav>
-    <div className="sm:hidden fixed bottom-16 right-5 z-50">
-          <LogoutButton></LogoutButton>
-    </div>
-
-    <div className="sm:hidden fixed bottom-16 right-5 z-50">
+    
+    <div className="sm:hidden bottom-16 right-5 fixed">
       <ClientOnly>
         <PostModal />
       </ClientOnly>

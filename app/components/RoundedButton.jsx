@@ -2,8 +2,8 @@
 
 export default function RoundedButton({ type = "button", variant = "primary", onClick, disabled=false,  children }) {
   const styles = {
-        primary: "bg-black hover:bg-gray-700 text-white rounded-full py-2 px-4 transition",
-        secondary: "border border-gray-400 text-gray-700 rounded-full py-2 px-4 hover:bg-gray-200 transition",
+        primary: "bg-[rgb(var(--prim-btn-bg))] text-[rgb(var(--prim-btn-text))] hover:bg-[rgb(var(--color-btn-hover))] hover:text-[rgb(var(--color-hover-text))] rounded-full py-2 px-4 transition cursor-pointer",
+        secondary: "bg-[rgb(var(--sec-btn-bg))] border border-[rgb(var(--color-btn-border))] text-[rgb(var(--sec-btn-text))] hover:bg-[rgb(var(--color-btn-hover))] hover:text-[rgb(var(--color-hover-text))] rounded-full py-2 px-4 transition cursor-pointer",
   };
   return (
     <button 

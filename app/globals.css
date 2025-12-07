@@ -2,30 +2,43 @@
 
 @layer base {
   :root {
-    --color-bg: 255 255 255; /* light */
-    --color-text: 15 20 25;
-    --color-border: 230 236 240;
+    --color-bg: 255 255 255; /* white */
+    --color-text: 15 20 25;  /* almost black */
+    --color-border: 230 236 240;  /* light gray */
+
+    --prim-btn-bg: 0 0 0; /* black button */
+    --prim-btn-text: 255 255 255;  /* white text */
+    --sec-btn-bg: 238 238 238; /* gray button */
+    --sec-btn-text: 0 0 0;  /* black text */
+    --color-btn-border: 200 200 200;  /* light gray border */
+
+    --color-btn-hover: 201 201 201;  /* light gray hover */
+    --color-hover-text: 15 20 25;  /* almost black */
+
+    --color-hover-bg: 235 235 235; /* very light gray */
+    --min-hover-bg: 235 235 235; /* light gray */
   }
 
   [data-theme="dark"] {
-    --color-bg: 0 0 0;
-    --color-text: 231 233 234;
-    --color-border: 47 51 54;
+    --color-bg: 0 0 0;  /* black */
+    --color-text: 231 233 234;  /* light gray */
+    --color-border: 47 51 54;  /* dark gray */
+
+    --prim-btn-bg: 255 255 255; /* white button */
+    --prim-btn-text: 0 0 0;  /* black text */
+    --sec-btn-bg: 220 220 220; /* light gray button */
+    --sec-btn-text: 15 20 25;  /* black text */
+    --color-btn-border: 200 200 200;  /* light gray border */
+
+    --color-btn-hover: 238 238 238;  /* light gray hover */
+    --color-hover-text: 15 20 25;  /* almost black */
+    
+    --color-hover-bg: 40 40 40; /* very dark gray */
+    --min-hover-bg: 40 40 40; /* light gray */
   }
   body {
     @apply bg-[rgb(var(--color-bg))] text-[rgb(var(--color-text))] antialiased font-sans;
   }
 }
-
-@theme {
-  --breakpoint-xs: 480px;
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1536px;
-  --breakpoint-3xl: 1920px;
-}
-
 
 

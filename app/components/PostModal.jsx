@@ -46,8 +46,8 @@ export default function PostModal() {
 
       {/* Modal */}
       {open && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-9999">
-          <div className="bg-[rgb(var(--color-bg))] w-full max-w-lg rounded-2xl shadow-xl p-4 border border-gray-700 relative">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center">
+          <div className="relative z-60 bg-[rgb(var(--color-bg))] w-full max-w-lg rounded-2xl shadow-xl p-4 border border-gray-700 ">
             <button
               onClick={() => setOpen(false)}
               className="absolute top-2 right-3 text-gray-400 hover:text-white text-xl"

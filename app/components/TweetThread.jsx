@@ -34,7 +34,15 @@ export default function TweetThread({ tweet:initialTweet, replies: initialReplie
 
   return (
     <section className="flex flex-col border-l border-r border-[rgb(var(--color-border))] min-h-screen">
-      
+      <div className="flex flex-row"> 
+        <Link
+          href="/protected"
+          className="flex items-center gap-2 px-4 py-3 text-gray-700"
+        >
+          ← Back
+        </Link>
+        <p className="text-xl font-bold py-3">Post</p>
+      </div>
       <TweetCard tweet={tweet} onNewReply={fetchReplies} />
 
       <PostComposer 
