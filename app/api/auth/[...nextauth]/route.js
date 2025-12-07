@@ -32,7 +32,8 @@ export const authOptions = {
           id: user._id.toString(),
           username: user.username, 
           email: user.email, 
-          createdAt: user.createdAt  
+          createdAt: user.createdAt,  
+          image: user.avatar || null,
       };
       }
     }),
@@ -48,6 +49,7 @@ export const authOptions = {
         token.username = user.username;
         token.email = user.email;
         token.createdAt = user.createdAt;
+        token.avatar = user.avatar || null;
       }
       return token;
     },
@@ -58,6 +60,7 @@ export const authOptions = {
       username: token.username,
       email: token.email,
       createdAt: token.createdAt,
+      image: token.avatar || null,
       };
       return session;
     },

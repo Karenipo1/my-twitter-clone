@@ -48,6 +48,7 @@ export async function POST(request) {
     const data = await request.json();
 
     const newPost = await Post.create({
+      userId: data.userId,
       user_name: data.user_name,
       user: data.user,
       body: data.body,

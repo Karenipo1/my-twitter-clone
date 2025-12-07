@@ -2,11 +2,13 @@
 import { useSession } from "next-auth/react";
 import { CalendarDays } from "lucide-react";
 import RoundedButton from "@/app/components/RoundedButton";
+import { useState } from "react";
 
 
 export default function ProfilePage(){
     const { data: session, status } = useSession();
     console.log("Session data:", session);
+    const [showEdit, setShowEdit] = useState(false);
 
     if (status === "loading") {
         return <div>Loading...</div>;
@@ -26,16 +28,23 @@ export default function ProfilePage(){
                             Background image
                         </span>
                     </div>
+                    {session?.user?.image ?(
+                        <img 
+                            src={session.user.image}
+                            alt="User Avatar"
+                            className="w-24 h-24 rounded-full border-2 border-white absolute -bottom-10 left-4"
+                        />
+                    ) : (    
                     <div className="absolute -bottom-10 left-4">
                         <div className="w-24 h-24 rounded-full border-2 border-white bg-blue-500 flex items-center justify-center text-white text-sm">
                             {session.user.username}
                         </div>
                     </div>
-                    
+                    )}
                 </div>
                 <div className="flex justify-end px-4 mt-2 font-bold">
                     
-                        <RoundedButton variant="secondary" >
+                        <RoundedButton variant="secondary" onClick={() => setShowEdit(true)} >
                             Edit Profile
                         </RoundedButton>
                     

@@ -3,10 +3,21 @@
 import { useState } from "react";
 import { Image, Smile, Globe } from "lucide-react";
 import ToolTip from "./ToolTip";
+import { useSession } from "next-auth/react";
 
 export default function PostComposer({ placeholder, onPostSuccess, parentId, onClose }) {
+  const { data: session, status } = useSession();
   const [content, setContent] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const user = session?.user;
+
+  const addImage = () => {
+    const url = prompt("Paste image URL:");
+    if (!url) return;
+    setImageUrl(url);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,10 +27,11 @@ export default function PostComposer({ placeholder, onPostSuccess, parentId, onC
 
     // Simulated tweet
     const newPost = {
-      user_name: "Current User",
-      user: "you",  
+      userId: user?.id,
+      user_name: user?.username,
+      user: user?.email,  
       body: content,
-      image: "you",
+      image: imageUrl || null,
       emoji: null,
       parent: parentId || null,
       
@@ -38,6 +50,7 @@ export default function PostComposer({ placeholder, onPostSuccess, parentId, onC
     onPostSuccess?.(savedPost);
     onClose?.();  
     setContent("");
+    setImageUrl("");
 
     } catch (error){
       console.error("Error posting:", error);
@@ -50,7 +63,7 @@ export default function PostComposer({ placeholder, onPostSuccess, parentId, onC
     <div className="border-b border-[rgb(var(--color-border))] mt-1 p-4 flex gap-3">
       {/* Avatar */}
       <img
-        src="https://api.dicebear.com/9.x/identicon/svg?seed=currentUser"
+        src={user?.image ||"https://api.dicebear.com/9.x/identicon/svg?seed=currentUser"}
         alt="current user"
         className="w-10 h-10 rounded-full"
       />
@@ -64,13 +77,25 @@ export default function PostComposer({ placeholder, onPostSuccess, parentId, onC
           rows={2}
           className="w-full bg-transparent text-[rgb(var(--color-text))] resize-none focus:outline-none placeholder-gray-500"
         />
-
+        {/* Imagen adjunta */}
+        {imageUrl && (
+          <div className="relative w-full h-40 rounded-lg overflow-hidden border border-gray-300">
+            <img src={imageUrl} alt="Attached" className="object-cover w-full h-full" />
+            <button
+              type="button"
+              onClick={() => setImageUrl("")}
+              className="absolute top-1 right-1 bg-black/50 text-white rounded-full px-2 py-1 text-sm"
+            >
+              ✕
+            </button>
+          </div>
+        )}
         {/* Barra inferior */}
         <div className="flex items-center justify-between pt-2">
           <div className=" flex gap-3 text-[rgb(var(--color-text-secondary))]">
-            <ToolTip text="Media"><Image size={18} className=" text-sky-500" /></ToolTip>     
-            <ToolTip text="Emoji"><Smile size={18} className=" text-sky-500" /></ToolTip>
-            <ToolTip text="Location"><Globe size={18} className=" text-sky-500" /></ToolTip>
+            <ToolTip text="Media"><Image size={18} onClick={addImage} className="cursor-pointer text-sky-500" /></ToolTip>     
+            <ToolTip text="Emoji"><Smile size={18} className="cursor-pointer text-sky-500" /></ToolTip>
+            <ToolTip text="Location"><Globe size={18} className="cursor-pointer text-sky-500" /></ToolTip>
           </div>
 
           <button

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import PostComposer from "./PostComposer";
 import { useTweetContext } from "../context/TweetContext";
+import Portal from "./Portal";
 
 export default function PostModal() {
   const [open, setOpen] = useState(false);
@@ -46,6 +47,7 @@ export default function PostModal() {
 
       {/* Modal */}
       {open && (
+        <Portal>
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center">
           <div className="relative z-60 bg-[rgb(var(--color-bg))] w-full max-w-lg rounded-2xl shadow-xl p-4 border border-gray-700 ">
             <button
@@ -65,6 +67,7 @@ export default function PostModal() {
             
           </div>
         </div>
+      </Portal>
       )}
     </>
   );

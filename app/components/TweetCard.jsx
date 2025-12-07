@@ -46,14 +46,21 @@ export default function TweetCard({tweet, onNewReply}) {
                <div className="flex flex-col">
                     <div className="flex items-start gap-2">
                     <p className="font-semibold text-[rgb(var(--color-text))]">
-                        User {tweet.user_name}
+                        {tweet.user_name}
                     </p>
-                    <p className="text-gray-500 text-sm">@user{tweet.user}</p>
+                    <p className="text-gray-500 text-sm">{tweet.user}</p>
                     </div>
         
                     <p className="text-[15px] leading-snug text-[rgb(var(--color-text))]">
                     {tweet.body}
                     </p>
+                    {tweet.image && (
+                    <img
+                        src={tweet.image}
+                        alt="attached media"
+                        className="mt-2 w-full max-h-80 rounded-xl object-cover"
+                    />
+                    )}
                 </div>
                 <div className="flex flex-row justify-between mt-3 w-full text-gray-500">
 
