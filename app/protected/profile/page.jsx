@@ -22,7 +22,7 @@ export default function ProfilePage(){
             <div className="flex flex-col align-middle w-full">
                 <h1 className="text-2xl font-bold mt-4 px-0">Profile</h1>
 
-                <div className="relative flex flex-col p-2">
+                <div className="relative flex flex-col p-2 z-0">
                     <div className="w-full h-40 bg-gray-300">
                         <span className="text-gray-700 p-4 text-xs flex justify-start h-full">
                             Background image
@@ -42,14 +42,14 @@ export default function ProfilePage(){
                     </div>
                     )}
                 </div>
-                <div className="flex justify-end px-4 mt-2 font-bold">
+                <div className="flex justify-end px-4 mt-2 font-bold z-0">
                     
                         <RoundedButton variant="secondary" onClick={() => setShowEdit(true)} >
                             Edit Profile
                         </RoundedButton>
                     
                 </div>
-                <div className="relative flex flex-col mt-8 gap-2 p-4">
+                <div className="relative flex flex-col mt-8 gap-2 p-4 z-0">
                         <span className="text-xl font-bold">{session.user.username}</span>
                         <span className="txt-xm font-semibold text-gray-700">{session.user.email}</span>
                         <p className="flex text-sm">

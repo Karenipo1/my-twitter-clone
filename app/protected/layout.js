@@ -18,11 +18,11 @@ export default async function ProtectedLayout({ children }) {
           <main className="flex-1 flex  flex-col  sm:pb-0 min-w-0">
             {children}
           </main>
-          <ClientOnly>
+          
             <aside className="hidden lg:flex lg:w-1/3 border-gray-100">
               <RightPanel />
             </aside>
-          </ClientOnly>
+          
         </div>
         </TweetProvider>
     </NextAuthProvider>

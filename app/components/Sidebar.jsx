@@ -84,7 +84,7 @@ export default function Sidebar() {
 
               {/* SUBMENU */}
               {openProfileMenu && (
-                <div className="absolute top-0 left-20 -translate-x-1/2 -translate-y-1/2 bg-[rgb(var(--color-bg))] text-[rgb(var(--color-text))]  font-bold shadow-lg rounded-xl p-4 w-35 z-50">
+                <div className="absolute z-50 top-0 left-20 -translate-x-1/2 -translate-y-1/2 bg-[rgb(var(--color-bg))] text-[rgb(var(--color-text))]  font-bold shadow-lg rounded-xl p-4 w-35">
                   <Link
                     href="/protected/profile"
                     className="flex items-center gap-2 p-2 rounded-lg hover:bg-[rgb(var(--min-hover-bg))]"

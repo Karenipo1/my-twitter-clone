@@ -1,4 +1,4 @@
-import ThemeSwitcher from "./ThemeSwitcher";
+
 import Footer from "./Footer";
 
 export const revalidate = 20; 
@@ -18,10 +18,7 @@ console.log("Headers fetch:", res.headers);
 
   return (
     <aside className="p-0 space-y-6">
-      <div className="flex justify-end">
-        <ThemeSwitcher className="h-6 w-6"/>
-      </div>
-
+      
       <div className="bg-[rgb(var(--color-bg-hover))] rounded-2xl overflow-hidden">
         <h3 className="text-xl font-bold px-4 py-3">Today's News</h3>
         <ul className="divide-y divide-gray-200">
