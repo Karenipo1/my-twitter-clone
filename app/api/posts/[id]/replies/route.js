@@ -1,9 +1,9 @@
 import { connectDB } from "@/lib/mongodb";
 import Post from "@/models/Post";
 
-export async function GET(req, { params }) {
+export async function GET(req, context) {
   await connectDB();
-
-  const replies = await Post.find({ parent: params.id }).sort({ createdAt: -1 });
+  const { id } = await context.params;
+  const replies = await Post.find({ parent: id }).sort({ createdAt: -1 });
   return Response.json(replies);
 }

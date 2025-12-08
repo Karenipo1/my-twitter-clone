@@ -1,10 +1,11 @@
 import { connectDB } from "@/lib/mongodb";
 import Post from "@/models/Post";
 
-export async function GET(request, {params}) {
+export async function GET(request, context) {
   try {
     await connectDB();
-    const posts = await Post.findById(params.id); // to get a single post by its ID
+    const {id} = await context.params;
+    const posts = await Post.findById(id); // to get a single post by its ID
 
     if (!posts) { 
       return Response.json({ error: "Post not found" }, { status: 404 });
@@ -16,20 +17,21 @@ export async function GET(request, {params}) {
   }
 }
 
-export async function PATCH(request, { params }) {
+export async function PATCH(request, context) {
   try {
     await connectDB();
+    const {id} = await context.params;
     const { action } = await request.json(); // "like" o "unlike"
 
     const updatedPost =
       action === "like"
         ? await Post.findByIdAndUpdate(
-            params.id,
+            id,
             { $inc: { likes: 1 } }, // 🔼 suma 1 like
             { new: true }
           )
         : await Post.findByIdAndUpdate(
-            params.id,
+            id,
             { $inc: { likes: -1 } }, // 🔽 resta 1 like
             { new: true }
           );

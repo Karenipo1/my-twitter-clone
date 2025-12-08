@@ -20,8 +20,8 @@ async function getReplies(parentId) {
   return res.json();
 }
 
-export default async function TweetDetail({params}) {
-    const id = params.id;
+export default async function TweetDetail(props) {
+    const {id} = await props.params;
     const tweet = await getTweet(id);
     const replies = await getReplies(id);
     console.log("tweet principal:", tweet);
