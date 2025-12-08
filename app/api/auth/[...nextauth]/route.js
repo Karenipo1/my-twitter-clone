@@ -4,7 +4,7 @@ import User from "../../../../models/User";
 import { compare } from "bcryptjs";
 import { connectDB } from "@/lib/mongodb";
 
-const authOptions = {
+export const authOptions = {
   providers: [
     Credentials({
       name: "Credentials",
@@ -72,4 +72,3 @@ const authOptions = {
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
-export default authOptions;
