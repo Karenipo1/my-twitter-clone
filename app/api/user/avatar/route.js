@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import User from "../../../../models/User";
 import {connectDB} from "@/lib/mongodb";
-import authOptions from "@/app/api/auth/[...nextauth]/authOptions";
+import {authOptions} from "@/lib/authOptions";
 
 export async function PATCH(req) {
   await connectDB();
