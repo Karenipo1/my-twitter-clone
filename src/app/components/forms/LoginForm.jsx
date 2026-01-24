@@ -36,6 +36,30 @@ export default function LoginForm(){
     }
     };
 
+    const handleDemoLogin = async () => {
+      setError(null);
+      setLoading(true);
+
+      try {
+        const result = await signIn("credentials", {
+          redirect: false,
+          email: "ka@account.com",
+          password: "karen123",
+        });
+
+        if (result?.error) {
+          setError(result.error);
+        } else {
+          router.push("/protected");
+        }
+      } catch (err) {
+        console.error(err);
+        setError("Unexpected error");
+      } finally {
+        setLoading(false);
+      }
+    };
+
     return(
     <div className="w-full overflow-hidden h-screen flex  bg-white">
 
@@ -79,8 +103,18 @@ export default function LoginForm(){
               <RoundedButton
                 type="submit"
                 variant="primary"
+                disabled={loading}
               >
                 Login
+              </RoundedButton>
+
+              <RoundedButton
+                type="button"
+                variant="secondary"
+                onClick={handleDemoLogin}
+                disabled={loading}
+              >
+                Login as Demo User
               </RoundedButton>
 
               <div className="flex justify-center">
