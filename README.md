@@ -13,6 +13,9 @@ The goal of this project is to demonstrate real-world React and Next.js experien
 🔗 [Vercel deployment recommended](https://my-twitter-clone-liart.vercel.app/)
 📸 Coming soon Screenshots
 
+👉 **Click “Login as Demo User” on the login page to access the application instantly.**  
+> Demo access is provided for evaluation purposes only.
+
 ## Project Description
 
 The application reproduces the main structure and functionality of a social media platform similar to Twitter (X):
